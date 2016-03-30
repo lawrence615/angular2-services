@@ -6,8 +6,7 @@ import {LoggingService} from "./services/logging.service";
     template: `
         <input type="text" #message>
         <button (click)="onLog(message.value)">Send</button>
-    `,
-    providers:[LoggingService]
+    `
 })
 
 export class Component1Component {
