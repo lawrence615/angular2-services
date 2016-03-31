@@ -1,17 +1,18 @@
 import {Component} from 'angular2/core';
 import {LoggingService} from "./services/logging.service";
 import {CalculatorService} from "./services/calculator.service";
+import {DataService} from "./services/data.service";
 
 @Component({
     selector: 'component-2',
     template: `
         <div>
-            <h1>Logging Service</h1>
+            <h3>Logging Service</h3>
             <input type="text" #message>
             <button (click)="onLog(message.value)">Send</button>
         </div>
         <div>
-            <h1>Caluculator Service</h1>
+            <h3>Caluculator Service</h3>
             <p>Add or Multiply these two numbers:</p>
             <input type="text" #num1>
             <input type="text" #num2>
@@ -20,16 +21,24 @@ import {CalculatorService} from "./services/calculator.service";
             <br>
             <p>Result: {{result}}</p>
         </div>
+        <div>
+            <h3>Data Service</h3>
+            <button (click)="onGetData()">Get Data</button>
+            <p>Data:  {{data}}</p>
+            <input type="text" #newValue>
+            <button (click)="onInsertData(newValue.value)">Insert data</button>
+        </div>
     `,
-    providers: [LoggingService, CalculatorService]
+    providers: [LoggingService, CalculatorService, DataService]
 })
 
 export class Component2Component {
 
 
     result:string;
+    data:string;
 
-    constructor(private _loggingService:LoggingService, private _calculatorService:CalculatorService) {
+    constructor(private _loggingService:LoggingService, private _calculatorService:CalculatorService, private _dataService:DataService) {
 
     }
 
@@ -51,5 +60,13 @@ export class Component2Component {
 
     onMultiply(num1:string, num2:string) {
         this.result = '' + this._calculatorService.multiply(+num1, +num2);
+    }
+
+    onGetData() {
+        this.data = this._dataService.getRandomString();
+    }
+
+    onInsertData(value:string) {
+        this._dataService.insert(value);
     }
 }
